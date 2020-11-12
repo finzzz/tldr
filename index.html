@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <link rel="stylesheet" href="monokai.css">
+    <style type="text/css">
+        body {
+            background:#f3f5fa;
+            color:#4a4e69;
+            font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+        }
+        
+        #command {
+            width: 20%;
+            height: 30px;
+        }
+
+        #search_btn {
+            color: #39739d;
+            background-color: #e1ecf4;
+            border-color: #7aa7c7;
+            box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.7);
+            height: 30px;
+        }
+
+        #content {
+            padding-left:5%;
+            padding-right:5%;
+        }
+    </style>
+    <title>TLDR Web Client by finzzz</title>
+</head>
+<body>
+    <div align=center>
+        <h1>TLDR Web Client by finzzz</h1>
+        <input type="text" id="command"/>  <button id=search_btn onclick="search()">Search</button> 
+    </div>
+    <div id="content"></div>
+
+    <script src="highlight.min.js"></script> <!-- https://highlightjs.org -->
+    <script src="marked.min.js"></script> <!-- https://github.com/markedjs/marked -->
+    <script>
+        function search(){
+            var path = "tldr/pages/"
+            var subfolders = ["common","linux","osx","sunos","windows"];
+            var command = document.getElementById("command").value
+            subfolders.forEach(function check(f){
+                var url = path + f + "/" + command + ".md"
+                fetch(url)
+                .then((resp)=>{
+                    if (resp.status != "404"){
+                        get(url)
+                    }else{
+                        document.getElementById('content').innerHTML = marked("# Not Found")
+                    }
+                })
+            })
+        }
+
+        function get(url){
+            fetch(url)
+            .then((resp)=>{return resp.text()})
+            .then((text)=>{
+                document.getElementById('content').innerHTML = marked(text)
+                document.querySelectorAll('code').forEach((block) => { 
+                    hljs.configure({
+                        tabReplace: '    ',
+                        languages: ["bash", "shell"],
+                    })
+                    hljs.highlightBlock(block) 
+                })
+                document.getElementById('command').value = ""
+            })
+        }
+    </script>
+    <script>
+        // trigger on enter
+        document.getElementById("command")
+        .addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("search_btn").click();
+            }
+        });
+    </script>
+</body>
+</html>
