@@ -29,11 +29,11 @@
             padding-right:5%;
         }
     </style>
-    <title>TLDR Web Client by finzzz</title>
+    <title>Linux TLDR Web Client by finzzz</title>
 </head>
 <body>
     <div align=center>
-        <h1>TLDR Web Client by finzzz</h1>
+        <h1>Linux TLDR Web Client by finzzz</h1>
         <input type="text" id="command"/>  <button id=search_btn onclick="search()">Search</button> 
     </div>
     <div id="content"></div>
@@ -43,11 +43,11 @@
     <script>
         function search(){
             var path = "tldr/pages/"
-            var subfolders = ["common","linux","osx","sunos","windows"];
+            var subfolders = ["common","linux"];
             var command = document.getElementById("command").value
             subfolders.forEach(function check(f){
                 var url = path + f + "/" + command + ".md"
-                fetch(url)
+                fetch(url + "?v=" + random())
                 .then((resp)=>{
                     if (resp.status != "404"){
                         get(url)
@@ -73,6 +73,21 @@
                 document.getElementById('command').value = ""
             })
         }
+
+        function random(length = 8){
+            // Declare all characters
+            let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+            // Pick characers randomly
+            let str = '';
+            for (let i = 0; i < length; i++) {
+            str += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+
+            return str;
+
+        }
+
     </script>
     <script>
         // trigger on enter
