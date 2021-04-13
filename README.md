@@ -1,9 +1,9 @@
+# Installation
 1. Clone this repo
-2. Clone tldr repo ( inside this repo )
 ```
-git clone https://github.com/tldr-pages/tldr
+git clone --recursive https://github.com/finzzz/tldr
 ```
-3. Serve
+2. Serve
 ```
 python3 -m http.server
 ```
