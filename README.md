@@ -1,4 +1,7 @@
-# Installation
+# TLDR Web Client
+![](ss.png)
+
+## Manual Installation
 1. Clone this repo
 ```
 git clone --recursive https://github.com/finzzz/tldr
