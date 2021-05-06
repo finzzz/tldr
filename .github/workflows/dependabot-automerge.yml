@@ -1,0 +1,17 @@
+name: auto-merge
+
+on: pull_request_target
+
+jobs:
+  auto-merge:
+    timeout-minutes: 5
+
+    runs-on: ubuntu-latest
+
+    if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
+
+    steps:
+      - uses: actions/checkout@main
+      - uses: finzzz/action-dependabot-auto-merge@main
+        with:
+          github-token: ${{ secrets.dependabot }}
