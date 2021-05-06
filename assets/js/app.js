@@ -5,7 +5,11 @@ document.getElementById('command').value = ""
 function search(){
     var path = "tldr/pages/"
     var subfolders = document.getElementById("os").value
-    var command = (document.getElementById("command").value).toLowerCase()
+    var command = (document.getElementById("command").value)
+                    .toLowerCase()
+                    .trim()
+                    .replace(/  */g, '-')
+                    
     var url = path + subfolders + "/" + command + ".md"
 
     localStorage.setItem("command", command)
