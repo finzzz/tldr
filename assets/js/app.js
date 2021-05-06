@@ -1,5 +1,5 @@
 // clear on refresh
-document.getElementById("os").selectedIndex = 0;
+document.getElementById("os").selectedIndex = 1
 document.getElementById('command').value = ""
 
 function search(){
@@ -9,7 +9,7 @@ function search(){
                     .toLowerCase()
                     .trim()
                     .replace(/  */g, '-')
-                    
+
     var url = path + subfolders + "/" + command + ".md"
 
     localStorage.setItem("command", command)
