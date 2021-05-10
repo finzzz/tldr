@@ -12,6 +12,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@main
-      - uses: finzzz/tldr@main
+      - uses: finzzz/tldr@master
         with:
           github-token: ${{ secrets.dependabot }}
