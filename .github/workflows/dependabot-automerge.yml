@@ -11,7 +11,6 @@ jobs:
     if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
 
     steps:
-      - uses: actions/checkout@main
       - uses: finzzz/tldr@master
         with:
           github-token: ${{ secrets.dependabot }}
