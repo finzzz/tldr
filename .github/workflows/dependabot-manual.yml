@@ -1,16 +1,15 @@
-name: CI
-on: pull_request
+name: dependabot-manual
+
+on: workflow_dispatch
 
 jobs:
   automerge:
     runs-on: ubuntu-latest
-
     permissions:
       pull-requests: write
       contents: write
-
     steps:
       - uses: fastify/github-action-merge-dependabot@v3.0.0
         with:
           github-token: ${{ secrets.DEPENDABOT }}
-
+          pr-number: "236"
