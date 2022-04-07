@@ -1,6 +1,11 @@
 name: dependabot-manual
+# curl -H "Accept: application/vnd.github.v3+json" -H "Authorization: token TOKEN" -d '{"ref":"master", "inputs":{ "pr-number": "PR_NUMBER"}}' https://api.github.com/repos/finzzz/tldr/actions/workflows/dependabot-manual.yml/dispatches
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      pr-number:
+        required: true
 
 jobs:
   automerge:
@@ -12,4 +17,4 @@ jobs:
       - uses: fastify/github-action-merge-dependabot@v3.0.0
         with:
           github-token: ${{ secrets.DEPENDABOT }}
-          pr-number: "236"
+          pr-number: ${{ github.event.inputs.pr-number }}
