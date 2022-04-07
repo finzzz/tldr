@@ -1,0 +1,19 @@
+name: dependabot-manual
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr-number:
+        required: true
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3.0.0
+        with:
+          github-token: ${{ secrets.DEPENDABOT }}
+          pr-number: ${{ github.event.inputs.pr-number }}
