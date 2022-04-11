@@ -1,5 +1,5 @@
 # TLDR Web Client
-![](ss.png)
+![](https://raw.githubusercontent.com/finzzz/images/master/tldr.png)
 
 ## Manual Installation
 1. Clone this repo
