@@ -58,17 +58,6 @@ function get(os){
     
 }
 
-function getSavedValue(v){
-    if (!localStorage.getItem(v)) {
-        return ""
-    }
-    return localStorage.getItem(v)
-}
-
-function changeContent(id){
-    document.getElementById(id).innerHTML = getSavedValue(id)
-}
-
 // trigger on enter
 document.getElementById("command")
 .addEventListener("keyup", function(event) {
