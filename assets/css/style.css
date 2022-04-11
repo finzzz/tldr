@@ -3,6 +3,7 @@ body {
     color:#212529;
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
     line-height: 1.5;
+    text-align: center;
 }
 
 a {
@@ -24,9 +25,12 @@ code.hljs {
     display: inline; 
 }
 
-#os {
-    height: 1.8rem;
-    padding: 1px 0px;
+#osBtnDiv {
+    padding-top: 5px;
+}
+
+.osBtn {
+    margin: 20px;
 }
 
 #command {
@@ -54,4 +58,5 @@ code.hljs {
 #content {
     padding-left:5%;
     padding-right:5%;
+    text-align: left;
 }

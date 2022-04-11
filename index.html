@@ -9,21 +9,12 @@
     <title>TLDR</title>
 </head>
 <body>
-    <div align=center>
-        <h1>
-            <a href="https://github.com/finzzz/tldr">TLDR</a>
-        </h1>
+    <div>
+        <h1><a href="https://github.com/finzzz/tldr">TLDR</a></h1>
         <p>Minimalistic TLDR Web Client</p>
-        <select id="os" onchange="changeContent('command');">
-            <option value="android">Android</option>
-            <option value="common" selected>Common</option>
-            <option value="linux">Linux</option>
-            <option value="osx">OSX</option>
-            <option value="sunos">Sun OS</option>
-            <option value="windows">Windows</option>
-        </select>
-        <input type="text" id="command"/><button id=search_btn onclick="search()">></button> 
+        <input type="text" id="command"/><button id=search_btn onclick="fetchIndex()">></button> 
     </div>
+    <div id="osBtnDiv"></div>
     <div id="content"></div>
 
     <script src="assets/js/highlight.min.js"></script> <!-- https://highlightjs.org -->

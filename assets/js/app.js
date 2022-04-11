@@ -1,31 +1,49 @@
-// clear on refresh
-document.getElementById("os").selectedIndex = 1
-document.getElementById('command').value = ""
+document.getElementById('command').value = "" // clear on refresh
 
-function search(){
-    var path = "tldr/pages/"
-    var subfolders = document.getElementById("os").value
+async function fetchIndex(){
+    // clear
+    document.getElementById("osBtnDiv").innerHTML = ""
+    document.getElementById("content").innerHTML = ""
+    localStorage.setItem("commandOS", JSON.stringify([]))
+
     var command = (document.getElementById("command").value)
                     .toLowerCase()
                     .trim()
                     .replace(/  */g, '-')
-
-    var url = path + subfolders + "/" + command + ".md"
-
+    
     localStorage.setItem("command", command)
-
-    fetch(url)
-    .then((resp)=>{
-        if (resp.status != "404"){
-            get(url)                    
-        }else{
-            document.getElementById('content').innerHTML = marked("# Not Found")
+    await fetch('./index.json').then(response => {
+        return response.json();
+    }).then(data => {
+        for(i=0;i<data.commands.length;i++){
+          if(data.commands[i].name == command){
+            localStorage.setItem("command", command)
+            localStorage.setItem("commandOS", JSON.stringify(data.commands[i].platform))
+          }
         }
-    })
+    });
+
+    var commandOS = await JSON.parse(localStorage.getItem("commandOS"))
+    if (commandOS.length > 0){
+        for (i=0;i<commandOS.length;i++){
+            var btn = document.createElement('button')
+            btn.setAttribute("class","osBtn")
+            btn.setAttribute("onclick","get(\""+commandOS[i]+"\")")
+            btn.innerHTML = commandOS[i]
+            document.getElementById("osBtnDiv").appendChild(btn)
+        }
+
+        get(commandOS[0])
+    } else {
+        var na = document.createElement('p')
+        na.innerHTML = "--- not found ---"
+        document.getElementById("osBtnDiv").appendChild(na)
+    }
 }
 
-function get(url){
-    fetch(url)
+function get(os){
+    var command = localStorage.getItem("command")
+    fetch("tldr/pages/" + os + "/" + command + ".md")
     .then((resp)=>{return resp.text()})
     .then((text)=>{
         document.getElementById('content').innerHTML = marked(text)
@@ -54,8 +72,6 @@ function changeContent(id){
 // trigger on enter
 document.getElementById("command")
 .addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {
-        event.preventDefault()
-        document.getElementById("search_btn").click()
-    }
+    if (event.defaultPrevented) {return}
+    if (event.code == "Enter") {document.getElementById("search_btn").click()}
 })
