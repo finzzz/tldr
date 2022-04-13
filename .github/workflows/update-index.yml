@@ -1,5 +1,5 @@
-name: Update index.json
-on: [pull_request, workflow_dispatch]
+name: Manual update index
+on: workflow_dispatch
 
 jobs:
   updateindex:

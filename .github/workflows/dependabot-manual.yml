@@ -1,4 +1,4 @@
-name: dependabot-manual
+name: Manual merge
 # curl -H "Accept: application/vnd.github.v3+json" -H "Authorization: token TOKEN" -d '{"ref":"master", "inputs":{ "pr-number": "PR_NUMBER"}}' https://api.github.com/repos/finzzz/tldr/actions/workflows/dependabot-manual.yml/dispatches
 
 on:

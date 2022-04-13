@@ -1,4 +1,4 @@
-name: CI
+name: Auto merge and update index
 on: pull_request
 
 jobs:
@@ -12,4 +12,15 @@ jobs:
     steps:
       - uses: fastify/github-action-merge-dependabot@v3.0.0
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+      - name: Fetch resources
+        run: |
+          curl -o index.json https://raw.githubusercontent.com/tldr-pages/tldr-pages.github.io/main/assets/index.json
+      - name: Update resources
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: index.json
+          commit-msg: Update index.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
